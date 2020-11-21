@@ -21,6 +21,8 @@ function App() {
           </a>
           <Link to="/">Home</Link>
           <Link to="/otherpage">Other Page</Link>
+          <p>AWS Beanstalk + RDS + Elastic + Multi Container Docker + Hub Docker + Travis CI + Github + GIT</p>
+          <p>aredie was here @nov2020</p>
         </header>
         <div>
           <Route exact path="/" component={Fib} />
