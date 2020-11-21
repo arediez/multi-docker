@@ -1,0 +1,25 @@
+sudo: required
+language: generic 
+services:
+  -docker
+
+before_install:
+  - docker build -t aredie/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true aredie/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t aredie/multi-client ./client
+  - docker build -t aredie/multi-nginx ./nginx
+  - docker build -t aredie/multi-server ./server
+  - docker build -t aredie/multi-worker ./worker
+
+#login to docker cli
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+#push images to dockerhub
+  -  docker push aredie/multi-client
+  -  docker push aredie/multi-nginx
+  -  docker push aredie/multi-server
+  -  docker push aredie/multi-worker
