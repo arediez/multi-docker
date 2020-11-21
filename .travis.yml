@@ -25,3 +25,15 @@ after_success:
   -  docker push aredie/multi-nginx
   -  docker push aredie/multi-server
   -  docker push aredie/multi-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: ap-southeast-1
+  app: multi-docker
+  env: MultiDocker-env
+  bucket: elasticbeanstalk-ap-southeast-1-592656473699
+  bucket_path: docker-multi
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
